@@ -32,5 +32,10 @@ export const analyzeIngredients = async (cerealName, ingredients) => {
   return response.data;
 };
 
+export const sendChatMessage = async (chatData) => {
+  const response = await api.post('/api/chat', chatData);
+  return response.data;
+};
+
 export default api;
 

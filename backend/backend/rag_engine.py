@@ -56,36 +56,55 @@ Relevant Guidelines and Information:
 
 IMPORTANT: Structure your response in the following format:
 
-## VERDICT: [GOOD ✅ or BAD ❌]
+## VERDICT: [GOOD ✅ or MODERATE ⚠️ or BAD ❌]
 
-**Quick Summary:** [1-2 sentences explaining why this product is good or bad for children]
+**Quick Summary:** [1-2 sentences explaining the verdict]
+
+VERDICT CLASSIFICATION RULES:
+- **GOOD ✅**: Mostly whole, natural ingredients with minimal processing. No added sugars or artificial ingredients.
+- **MODERATE ⚠️**: Good base ingredients BUT contains added sugars (sugar, cane sugar, brown sugar, corn syrup, high fructose corn syrup, honey, etc.) OR has some processed ingredients. Not terrible, but not ideal for regular consumption.
+- **BAD ❌**: Contains artificial colors, flavors, preservatives, excessive sugar, or highly processed ingredients harmful to children.
+
+CRITICAL: If the product contains ANY form of added sugar (sugar, cane sugar, brown sugar, honey, corn syrup, high fructose corn syrup, molasses, etc.) even if other ingredients are wholesome, classify it as MODERATE ⚠️ and explicitly mention the added sugar concern.
 
 ---
 
 ## Detailed Analysis
 
 ### 1. Overall Assessment
-Is this product generally safe and healthy for children? Provide a balanced view.
+Is this product generally safe and healthy for children? Provide a balanced view considering:
+- Base ingredients quality
+- Presence of added sugars (CRITICAL for classification)
+- Artificial vs natural ingredients
+- Processing level
 
-### 2. Ingredient-by-Ingredient Breakdown
+### 2. Added Sugar Analysis (CRITICAL)
+**ALWAYS check for added sugars first!**
+- Does this product contain added sugars? (sugar, cane sugar, brown sugar, honey, corn syrup, high fructose corn syrup, molasses, etc.)
+- If YES, explain the concern: "This product contains [type of sugar], which counts as added sugar. The American Heart Association recommends children ages 2-18 should have less than 25g (6 teaspoons) of added sugar per day. Added sugars provide empty calories and can contribute to obesity, tooth decay, and unhealthy eating habits."
+- Even if other ingredients are excellent, added sugars automatically make this MODERATE ⚠️
+
+### 3. Ingredient-by-Ingredient Breakdown
 For each ingredient or category of ingredients:
 - **Ingredient Name**: Good/Concerning/Neutral
   - Explanation based on nutritional science and FDA guidelines
   - Any specific concerns for children
   - Nutritional benefits (if applicable)
 
-### 3. Key Concerns (if any)
-- Highlight any problematic ingredients parents should be aware of
+### 4. Key Concerns
+- **Added Sugars**: If present, always list as the #1 concern
+- Other problematic ingredients parents should be aware of
 - Explain why they might be concerning
-- Provide important context (e.g., "Natural Flavors" doesn't always mean all-natural)
+- Provide important context
 
-### 4. Positive Aspects
+### 5. Positive Aspects
 - Beneficial ingredients and their nutritional value
-- What makes this product good (if applicable)
+- Whole grains, fiber, protein, vitamins
+- What makes this product have redeeming qualities
 
-Be honest, clear, and evidence-based. If something is generally safe but has considerations, explain both sides. Focus on what parents need to know to make informed decisions.
+Be honest, clear, and evidence-based. Focus on added sugars as the primary factor that moves products from GOOD to MODERATE.
 
-Remember: Start with the clear VERDICT (GOOD ✅ or BAD ❌) and quick summary at the top!
+Remember: Start with the clear VERDICT (GOOD ✅, MODERATE ⚠️, or BAD ❌) and quick summary at the top!
 """)
         
         # Build the LangGraph workflow

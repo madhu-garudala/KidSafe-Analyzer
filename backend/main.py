@@ -196,5 +196,101 @@ def get_status():
         'has_api_keys': bool(api_keys)
     })
 
+@app.route('/api/chat', methods=['POST'])
+def chat():
+    """Handle chatbot questions about ingredients."""
+    global ingredient_analyzer
+    
+    try:
+        # Check if system is initialized
+        if ingredient_analyzer is None:
+            return jsonify({
+                'success': False,
+                'error': 'System not initialized. Please configure API keys first.'
+            }), 400
+        
+        data = request.get_json()
+        cereal_name = data.get('cereal_name')
+        ingredients = data.get('ingredients')
+        question = data.get('question')
+        previous_analysis = data.get('previous_analysis', '')
+        chat_history = data.get('chat_history', [])
+        
+        if not question:
+            return jsonify({
+                'success': False,
+                'error': 'Missing question'
+            }), 400
+        
+        print(f"Chat question for {cereal_name}: {question}")
+        
+        # Import ChatOpenAI
+        from langchain_openai import ChatOpenAI
+        from langchain_core.prompts import ChatPromptTemplate
+        
+        # Create chat LLM
+        chat_llm = ChatOpenAI(
+            model="gpt-4o-mini",
+            api_key=api_keys['openai_api_key'],
+            temperature=0.7
+        )
+        
+        # Build conversation context
+        history_text = ""
+        if len(chat_history) > 1:  # More than just the initial greeting
+            history_text = "\n\nPrevious conversation:\n"
+            for msg in chat_history[-4:]:  # Last 4 messages for context
+                role = msg.get('role', 'user')
+                content = msg.get('content', '')
+                if role == 'user':
+                    history_text += f"User: {content}\n"
+                else:
+                    history_text += f"Assistant: {content}\n"
+        
+        # Create chat prompt
+        chat_prompt = ChatPromptTemplate.from_template("""
+You are a helpful AI assistant specializing in food ingredients and nutrition for children. 
+
+You have already analyzed this product:
+Product: {cereal_name}
+Ingredients: {ingredients}
+
+Previous Analysis:
+{previous_analysis}
+{history}
+
+User Question: {question}
+
+Provide a helpful, clear, and concise answer based on the analysis and your knowledge of food ingredients. 
+Be friendly and conversational. If the question is about something not covered in the analysis, 
+use your knowledge about food ingredients to provide accurate information.
+
+Keep your response focused and under 200 words unless more detail is specifically requested.
+""")
+        
+        # Format and invoke
+        messages = chat_prompt.format_messages(
+            cereal_name=cereal_name,
+            ingredients=ingredients,
+            previous_analysis=previous_analysis,
+            history=history_text,
+            question=question
+        )
+        
+        response = chat_llm.invoke(messages)
+        
+        return jsonify({
+            'success': True,
+            'answer': response.content
+        })
+        
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=5001)

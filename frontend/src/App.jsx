@@ -3,6 +3,7 @@ import Header from './components/Header';
 import APIConfig from './components/APIConfig';
 import CerealSelector from './components/CerealSelector';
 import AnalysisResults from './components/AnalysisResults';
+import Chatbot from './components/Chatbot';
 import { checkSystemStatus } from './services/api';
 import './App.css';
 
@@ -54,7 +55,14 @@ function App() {
           />
           
           {analysisResult && (
-            <AnalysisResults result={analysisResult} />
+            <>
+              <AnalysisResults result={analysisResult} />
+              <Chatbot 
+                cerealName={analysisResult.cereal_name}
+                ingredients={analysisResult.ingredients}
+                analysisResult={analysisResult.analysis}
+              />
+            </>
           )}
         </main>
 
